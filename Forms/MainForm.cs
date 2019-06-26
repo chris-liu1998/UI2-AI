@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using MetroFramework.Forms;
 using MySql.Data.MySqlClient;
+using System.Diagnostics;
 
 namespace AlphaBeatsUI
 {
@@ -79,7 +80,16 @@ namespace AlphaBeatsUI
                     mysql3Command.ExecuteNonQuery();
                 }
             }
-           
+
+            //ScriptRuntime pyRuntime = Python.CreateRuntime();
+            //dynamic obj = pyRuntime.UseFile("E:\\暑期实训\\19暑期实训\\Try1\\test.py");                      //打开python文件
+            //obj.test(FileInput.Text);
+
+            string[] strArr = new string[2];
+            string sArguments = @"test.py"; //调用的python的文件名字
+            strArr[0] = "2";
+            strArr[1] = "3";
+            RunPythonScript(sArguments, "-u", strArr);
         }
 
 
@@ -91,21 +101,57 @@ namespace AlphaBeatsUI
             {
                 FileInput.Text = this.openFileDialog1.FileName;
             }
+
         }
 
 
         //初始加载已保存游戏路径函数
         private void loadGamePath()
         {
-            string mysql = "select * from gamePath";                                                                     //查询表中是否已有数据
-            MySqlCommand mysqlCommand = new MySqlCommand(mysql, conn);                   //操作命令
-            MySqlDataReader reader = null;                                                                                   //查询结果读取器
-            reader = mysqlCommand.ExecuteReader();                                                                  //执行查询，将结果返回到读取器
+            string mysql = "select * from gamePath";                                                           //查询表中是否已有数据
+            MySqlCommand mysqlCommand = new MySqlCommand(mysql, conn);         //操作命令
+            MySqlDataReader reader = null;                                                                         //查询结果读取器
+            reader = mysqlCommand.ExecuteReader();                                                        //执行查询，将结果返回到读取器
 
-            if (reader.Read())                                                                                                            //代表查询有数据
+            if (reader.Read())                                                                                                  //代表查询有数据
             {
-                FileInput.Text = reader[0].ToString();                                                                        //将数据库中的数据赋给路径显示框
+                FileInput.Text = reader[0].ToString();                                                               //将数据库中的数据赋给路径显示框
             }
+            reader.Close(); 
+        }
+
+        //执行Python脚本
+        public static void RunPythonScript(string sArgName, string args = "", params string[] teps)
+        {
+            Process p = new Process();
+            // 获得python文件的绝对路径（将文件放在c#的debug文件夹中可以这样操作）
+            //string path = AppDomain.CurrentDomain.SetupInformation.ApplicationBase + sArgName;
+            string path = @"E:\暑期实训\19暑期实训\Try1\" + sArgName;
+            //如果配了python.exe，直接写"python.exe",否则使用绝对路径
+            p.StartInfo.FileName = @"python.exe";
+            string sArguments = path;
+            foreach (string sigstr in teps)
+            {
+                sArguments += " " + sigstr;//传递参数
+            }
+
+            p.StartInfo.Arguments = sArguments;
+
+            p.StartInfo.UseShellExecute = false;
+
+            p.StartInfo.RedirectStandardOutput = true;
+
+            p.StartInfo.RedirectStandardInput = true;
+
+            p.StartInfo.RedirectStandardError = true;
+
+            p.StartInfo.CreateNoWindow = true;
+
+            p.Start();
+            p.BeginOutputReadLine();
+            
+            Console.ReadLine();
+            p.WaitForExit();
         }
     }
 }
