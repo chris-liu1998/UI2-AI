@@ -16,7 +16,7 @@ namespace AlphaBeatsUI
     public partial class MainForm : MetroForm
     {
         //数据库连接对象
-        public static MySqlConnection conn = null;           
+        public static MySqlConnection conn = null;
 
         public MainForm()
         {
@@ -74,7 +74,7 @@ namespace AlphaBeatsUI
                     MySqlCommand mysql3Command = new MySqlCommand(mysql3, conn);
 
                     mysql3Command.Parameters.AddWithValue("@gamePath", FileInput.Text);                  //插入命令参数
-                                                                                                                                                                  
+
                     mysql1Command.ExecuteNonQuery();                                                                              //保存操作
                     mysql2Command.ExecuteNonQuery();
                     mysql3Command.ExecuteNonQuery();
@@ -86,7 +86,7 @@ namespace AlphaBeatsUI
             //obj.test(FileInput.Text);
 
             string[] strArr = new string[2];
-            string sArguments = @"test.py"; //调用的python的文件名字
+            string sArguments = @"start.py"; //调用的python的文件名字
             strArr[0] = "2";
             strArr[1] = "3";
             RunPythonScript(sArguments, "-u", strArr);
@@ -101,7 +101,6 @@ namespace AlphaBeatsUI
             {
                 FileInput.Text = this.openFileDialog1.FileName;
             }
-
         }
 
 
@@ -117,7 +116,7 @@ namespace AlphaBeatsUI
             {
                 FileInput.Text = reader[0].ToString();                                                               //将数据库中的数据赋给路径显示框
             }
-            reader.Close(); 
+            reader.Close();
         }
 
         //执行Python脚本
@@ -126,7 +125,7 @@ namespace AlphaBeatsUI
             Process p = new Process();
             // 获得python文件的绝对路径（将文件放在c#的debug文件夹中可以这样操作）
             //string path = AppDomain.CurrentDomain.SetupInformation.ApplicationBase + sArgName;
-            string path = @"E:\暑期实训\19暑期实训\Try1\" + sArgName;
+            string path = @"E:\暑期实训\19暑期实训\项目\newAI\OpenAI\demo\" + sArgName;
             //如果配了python.exe，直接写"python.exe",否则使用绝对路径
             p.StartInfo.FileName = @"python.exe";
             string sArguments = path;
@@ -149,9 +148,29 @@ namespace AlphaBeatsUI
 
             p.Start();
             p.BeginOutputReadLine();
-            
+
+            p.OutputDataReceived += new DataReceivedEventHandler(p_OutputDataReceived);
             Console.ReadLine();
             p.WaitForExit();
+        }
+        //输出打印的信息
+        static void p_OutputDataReceived(object sender, DataReceivedEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(e.Data))
+            {
+                AppendText(e.Data + Environment.NewLine);
+            }
+        }
+        public delegate void AppendTextCallback(string text);
+        public static void AppendText(string text)
+        {
+            Console.WriteLine(text);     //此处在控制台输出.py文件print的结果
+
+        }
+
+        private void MainForm_Load_1(object sender, EventArgs e)
+        {
+
         }
     }
 }
