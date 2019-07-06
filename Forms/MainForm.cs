@@ -19,8 +19,6 @@ namespace AlphaBeatsUI
         public MainForm()
         {
             InitializeComponent();
-            //通过database类获取数据库连接
-            //conn = database.dbcon.getConnection();
             
         }
 
@@ -48,10 +46,10 @@ namespace AlphaBeatsUI
         //开始训练按钮
         private void StartButton_Click(object sender, EventArgs e)
         {
-            if (FileInput.Text == "" || FileInput.Text == "选择游戏")
-            {
-                MessageBox.Show("The path of game is error!");
-            }
+            //if (FileInput.Text == "" || FileInput.Text == "选择游戏")
+            //{
+            //    MessageBox.Show("The path of game is error!");
+            //}
            
 
             
@@ -66,11 +64,11 @@ namespace AlphaBeatsUI
         //选取游戏
         private void FileInput_Click(object sender, EventArgs e)
         {
-            this.openFileDialog1.Filter = "exe文件(*.exe)|*.exe";
-            if (this.openFileDialog1.ShowDialog() == DialogResult.OK)
-            {
-                FileInput.Text = this.openFileDialog1.FileName;
-            }
+            //this.openFileDialog1.Filter = "exe文件(*.exe)|*.exe";
+            //if (this.openFileDialog1.ShowDialog() == DialogResult.OK)
+            //{
+            //    FileInput.Text = this.openFileDialog1.FileName;
+            //}
         }
 
 
@@ -121,11 +119,6 @@ namespace AlphaBeatsUI
         public static void AppendText(string text)
         {
             Console.WriteLine(text);     //此处在控制台输出.py文件print的结果
-
-        }
-
-        private void MainForm_Load_1(object sender, EventArgs e)
-        {
 
         }
     }
