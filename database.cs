@@ -25,7 +25,7 @@ namespace AlphaBeatsUI
                 //
                 //此处注意修改mysql数据库密码和对应数据库的名称即——database
                 //
-                string mysql_conn = "server=localhost;user id=root;password=123456;database=world";
+                string mysql_conn = "server=localhost;user id=root;password=159357258;database=world";
                 conn = new MySqlConnection(mysql_conn);
                 conn.Open();
             }
