@@ -139,7 +139,11 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resources\Chrome Dinosaur Demo.gif" />
+    <Content Include="Resources\Flappy bird.gif" />
+    <Content Include="Resources\Just Shapes &amp; Beats Demo.gif" />
     <Content Include="Resources\Logo.png" />
+    <Content Include="Resources\Space war.gif" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

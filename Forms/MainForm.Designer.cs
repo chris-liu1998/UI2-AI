@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.Label = new LollipopLabel();
             this.StartButton = new LollipopFlatButton();
             this.panel = new System.Windows.Forms.Panel();
@@ -82,7 +81,7 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.BackColor = System.Drawing.Color.PaleTurquoise;
             this.pictureBox1.Location = new System.Drawing.Point(57, 245);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(410, 240);
@@ -110,6 +109,7 @@
             this.metroComboBox1.Size = new System.Drawing.Size(410, 30);
             this.metroComboBox1.TabIndex = 9;
             this.metroComboBox1.UseSelectable = true;
+            this.metroComboBox1.SelectedIndexChanged += new System.EventHandler(this.MetroComboBox1_SelectedIndexChanged);
             // 
             // MainForm
             // 

@@ -121,5 +121,27 @@ namespace AlphaBeatsUI
             Console.WriteLine(text);     //此处在控制台输出.py文件print的结果
 
         }
+
+        private void MetroComboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (metroComboBox1.SelectedItem.ToString())
+            {
+                case "Flappy Huaji":
+                    pictureBox1.Image = Image.FromFile(@"..\..\Resources\Flappy bird.gif");
+                    break;
+                case "Just Shapes and Beats":
+                    pictureBox1.Image = Image.FromFile(@"..\..\Resources\Just Shapes & Beats Demo.gif");
+                    break;
+                case "Space War":
+                    pictureBox1.Image = Image.FromFile(@"..\..\Resources\Space war.gif");
+                    break;
+                //case "Flappy Huaji":
+                //    pictureBox1.Image = Image.FromFile(@"..\..\Resources\Flappy bird.gif");
+                //    break;
+                default:
+                    break;
+
+            }
+        }
     }
 }
